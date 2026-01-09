@@ -202,3 +202,86 @@ html {
   animation: rainPulse 2s ease-in-out infinite;
   animation-delay: 1.33s;
 }
+
+/* Smooth page transition animations */
+@keyframes slideUpFromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDownFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: slideUpFromBottom 0.75s ease-out forwards;
+  animation-fill-mode: both;
+}
+
+.animate-slide-down {
+  opacity: 0;
+  animation: slideDownFromTop 0.6s ease-out forwards;
+  animation-fill-mode: both;
+}
+
+.animate-fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.525s ease-out forwards;
+  animation-fill-mode: both;
+}
+
+.animate-fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards;
+  animation-fill-mode: both;
+}
+
+.animate-fade-out-up {
+  animation: fadeOutUp 0.15s ease-out forwards;
+  animation-fill-mode: both;
+}

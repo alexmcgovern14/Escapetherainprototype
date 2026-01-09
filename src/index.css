@@ -33,6 +33,7 @@
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
       --tw-outline-style: solid;
+      --tw-duration: initial;
     }
   }
 }
@@ -511,6 +512,10 @@
     margin-top: 0;
   }
 
+  .mr-1 {
+    margin-right: calc(var(--spacing) * 1);
+  }
+
   .mr-\[0px\] {
     margin-right: 0;
   }
@@ -525,10 +530,6 @@
 
   .mb-5 {
     margin-bottom: calc(var(--spacing) * 5);
-  }
-
-  .mb-10 {
-    margin-bottom: calc(var(--spacing) * 10);
   }
 
   .mb-\[40px\] {
@@ -549,6 +550,11 @@
 
   .inline-flex {
     display: inline-flex;
+  }
+
+  .size-3 {
+    width: calc(var(--spacing) * 3);
+    height: calc(var(--spacing) * 3);
   }
 
   .size-3\.5 {
@@ -587,6 +593,10 @@
 
   .h-4\/5 {
     height: 80%;
+  }
+
+  .h-7 {
+    height: calc(var(--spacing) * 7);
   }
 
   .h-8 {
@@ -968,8 +978,8 @@
     padding-block: calc(var(--spacing) * 4);
   }
 
-  .py-8 {
-    padding-block: calc(var(--spacing) * 8);
+  .py-6 {
+    padding-block: calc(var(--spacing) * 6);
   }
 
   .py-\[0px\] {
@@ -988,14 +998,6 @@
     padding-top: 75px;
   }
 
-  .pt-\[100px\] {
-    padding-top: 100px;
-  }
-
-  .pr-\[14px\] {
-    padding-right: 14px;
-  }
-
   .pr-\[28px\] {
     padding-right: 28px;
   }
@@ -1008,16 +1010,8 @@
     padding-bottom: 0;
   }
 
-  .pb-\[50px\] {
-    padding-bottom: 50px;
-  }
-
   .pl-10 {
     padding-left: calc(var(--spacing) * 10);
-  }
-
-  .pl-\[14px\] {
-    padding-left: 14px;
   }
 
   .pl-\[28px\] {
@@ -1180,6 +1174,11 @@
     transition-property: box-shadow;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+
+  .duration-300 {
+    --tw-duration: .3s;
+    transition-duration: .3s;
   }
 
   .outline-none {
@@ -1634,6 +1633,88 @@ html {
   animation: 2s ease-in-out 1.33s infinite rainPulse;
 }
 
+@keyframes slideUpFromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDownFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: .75s ease-out both slideUpFromBottom;
+}
+
+.animate-slide-down {
+  opacity: 0;
+  animation: .6s ease-out both slideDownFromTop;
+}
+
+.animate-fade-in-up {
+  opacity: 0;
+  animation: .525s ease-out both fadeInUp;
+}
+
+.animate-fade-in {
+  opacity: 0;
+  animation: .6s ease-out both fadeIn;
+}
+
+.animate-fade-out-up {
+  animation: .15s ease-out both fadeOutUp;
+}
+
 @property --tw-translate-x {
   syntax: "*";
   inherits: false;
@@ -1808,6 +1889,11 @@ html {
   syntax: "*";
   inherits: false;
   initial-value: solid;
+}
+
+@property --tw-duration {
+  syntax: "*";
+  inherits: false
 }
 
 @keyframes spin {

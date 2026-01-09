@@ -1,7 +1,7 @@
 
-  # Interactive Grocery Mobile App
+  # Escape the rain
 
-  This is a code bundle for Interactive Grocery Mobile App. The original project is available at https://www.figma.com/design/EhfvtOk2hJIZL6FxUFJRzx/Interactive-Grocery-Mobile-App.
+  This is a code bundle for Escape the rain. The original project is available at https://www.figma.com/design/EhfvtOk2hJIZL6FxUFJRzx/Escape-the-rain.
 
   ## Running the code
 

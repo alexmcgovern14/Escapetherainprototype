@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { MapPin, Search } from 'lucide-react';
+import { MapPin, Search, Edit2 } from 'lucide-react';
 
 interface LocationSelectorProps {
   onLocationSelect: (location: string) => void;
   selectedLocation: string;
+  collapsed?: boolean;
 }
 
-export default function LocationSelector({ onLocationSelect, selectedLocation }: LocationSelectorProps) {
+export default function LocationSelector({ onLocationSelect, selectedLocation, collapsed = false }: LocationSelectorProps) {
   const [searchValue, setSearchValue] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleUseMyLocation = () => {
     // Mock location detection
     onLocationSelect('Braintree, England, United Kingdom');
+    setIsEditing(false);
   };
 
   const handleSearch = () => {
     if (searchValue.trim()) {
       onLocationSelect(searchValue);
       setSearchValue('');
+      setIsEditing(false);
     }
   };
 
@@ -29,8 +33,28 @@ export default function LocationSelector({ onLocationSelect, selectedLocation }:
     }
   };
 
+  // Collapsed view for when location is already selected
+  if (collapsed && selectedLocation && !isEditing) {
+    return (
+      <div className="flex items-center justify-center gap-2 py-2 transition-all duration-300">
+        <MapPin className="size-4 text-muted-foreground" />
+        <span className="text-sm text-muted-foreground">Location:</span>
+        <span className="text-sm font-medium">{selectedLocation}</span>
+        <Button 
+          variant="ghost" 
+          size="sm"
+          onClick={() => setIsEditing(true)}
+          className="h-7 px-2 text-xs"
+        >
+          <Edit2 className="size-3 mr-1" />
+          Edit
+        </Button>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-4 lg:w-1/2 lg:mx-auto">
+    <div className="space-y-4 lg:w-1/2 lg:mx-auto transition-all duration-300">
       {/* Primary Action: Use My Location */}
       <div className="flex justify-center">
         <Button 
@@ -75,7 +99,7 @@ export default function LocationSelector({ onLocationSelect, selectedLocation }:
         </Button>
       </div>
       
-      {selectedLocation && (
+      {selectedLocation && !collapsed && (
         <p className="text-sm text-muted-foreground text-center">
           Selected: <span className="text-foreground font-medium">{selectedLocation}</span>
         </p>

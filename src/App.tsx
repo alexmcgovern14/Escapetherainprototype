@@ -46,13 +46,25 @@ const MOCK_DESTINATIONS: Destination[] = [
 
 export default function App() {
   const [selectedLocation, setSelectedLocation] = useState('');
+  const [isExiting, setIsExiting] = useState(false);
+
+  const handleLocationSelect = (location: string) => {
+    // Trigger exit animation
+    setIsExiting(true);
+    
+    // After exit animation completes, switch to results
+    setTimeout(() => {
+      setSelectedLocation(location);
+      setIsExiting(false);
+    }, 150); // Match fadeOut animation duration
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Conditional Rendering: Empty State or Results */}
       {!selectedLocation ? (
         /* Empty State - 4 Components Evenly Distributed */
-        <div className="min-h-screen flex flex-col">
+        <div className={`min-h-screen flex flex-col ${isExiting ? 'animate-fade-out-up' : ''}`}>
           {/* Component 1: Title + Subtitle */}
           <div className="bg-gradient-to-b from-blue-50 to-background px-4 flex items-center justify-center h-full flex-1 pt-[75px] pr-[28px] pb-[0px] pl-[28px]">
             <div className="max-w-7xl mx-auto text-center">
@@ -67,7 +79,7 @@ export default function App() {
           <div className="px-[28px] flex items-center justify-center h-full flex-1 py-[0px]">
             <div className="w-full max-w-7xl">
               <LocationSelector 
-                onLocationSelect={setSelectedLocation}
+                onLocationSelect={handleLocationSelect}
                 selectedLocation={selectedLocation}
               />
             </div>
@@ -116,37 +128,36 @@ export default function App() {
       ) : (
         /* Results State */
         <div className="w-full flex flex-col flex-1">
-          {/* Hero Section */}
-          <div className="bg-gradient-to-b from-blue-50 to-background pt-[100px] pb-[50px] px-4 pr-[14px] pl-[14px]">
-            <div className="max-w-7xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-semibold mb-3">Escape the Rain</h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Can't go outside? Find the nearest places where it's not raining
-              </p>
+          {/* Compact Header */}
+          <div className="bg-gradient-to-b from-blue-50 to-background py-4 px-4 border-b border-border animate-slide-down">
+            <div className="max-w-7xl mx-auto">
+              {/* Collapsed Location Selector */}
+              <LocationSelector 
+                onLocationSelect={setSelectedLocation}
+                selectedLocation={selectedLocation}
+                collapsed={true}
+              />
             </div>
           </div>
 
           {/* Main Content */}
-          <div className="max-w-7xl mx-auto px-4 w-full py-8">
-            {/* Location Selector */}
-            <div className="mb-10">
-              <LocationSelector 
-                onLocationSelect={setSelectedLocation}
-                selectedLocation={selectedLocation}
-              />
-            </div>
-
+          <div className="max-w-7xl mx-auto px-4 w-full py-6 animate-slide-up" style={{ animationDelay: '0.15s' }}>
             {/* Desktop: Two Column Layout | Mobile: Stacked */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Left Column: Destinations List */}
               <div className="order-2 lg:order-1">
                 <h2 className="mb-5">Dry destinations nearby</h2>
                 <div className="space-y-4">
-                  {MOCK_DESTINATIONS.map((destination) => (
-                    <DestinationCard 
-                      key={destination.id} 
-                      destination={destination} 
-                    />
+                  {MOCK_DESTINATIONS.map((destination, index) => (
+                    <div 
+                      key={destination.id}
+                      className="animate-fade-in-up"
+                      style={{ animationDelay: `${0.4 + index * 0.1}s` }}
+                    >
+                      <DestinationCard 
+                        destination={destination} 
+                      />
+                    </div>
                   ))}
                 </div>
               </div>
@@ -154,14 +165,16 @@ export default function App() {
               {/* Right Column: Map */}
               <div className="order-1 lg:order-2">
                 <h2 className="mb-5">Map</h2>
-                <div className="h-[400px] lg:h-[600px] lg:sticky lg:top-8">
+                <div className="h-[400px] lg:h-[600px] lg:sticky lg:top-8 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
                   <MapView destinations={MOCK_DESTINATIONS} />
                 </div>
               </div>
             </div>
 
             {/* Footer */}
-            <Footer />
+            <div className="animate-fade-in" style={{ animationDelay: '1s' }}>
+              <Footer />
+            </div>
           </div>
         </div>
       )}
